@@ -207,10 +207,10 @@ def get_total_return(stocks, quantities, purchase_dates, index_ticker="^GSPC"):
 
 
 if __name__ == "__main__":
-    # Example data
-    #stocks = ["AAPL", "MSFT", "TSLA"]
-    #quantities = [10, 5, 2]
-    #purchase_dates = ["2020-01-02", "2020-05-10", "2021-03-01"]
+    # Example data usage
+    stocks = ["AAPL", "MSFT", "TSLA"]
+    quantities = [10, 5, 2]
+    purchase_dates = ["2020-01-02", "2020-05-10", "2021-03-01"]
     
     (
         df_summary,
@@ -227,13 +227,13 @@ if __name__ == "__main__":
     print("\n=== Overall Return (From Purchase) ===")
     print(f"Total Portfolio Return (USD): {total_return_val}")
     print(f"Total Portfolio Return (%): {total_return_pct}%")
-    print(f"S&P 500 Return (%): {index_return_pct_overall}%")
+    print(f"S&P 500 Return (%): {index_return_pct_overall.iloc[0]}%")
 
     print("\n=== 6-Month Return ===")
     print(f"Portfolio 6-Month Return (%): {portfolio_return_6m}%")
-    print(f"S&P 500 6-Month Return (%): {index_return_6m}%")
+    print(f"S&P 500 6-Month Return (%): {index_return_6m.iloc[0]}%")
 
     print("\n=== 1-Month Return ===")
     print(f"Portfolio 1-Month Return (%): {portfolio_return_1m}%")
-    print(f"S&P 500 1-Month Return (%): {index_return_1m}%")
+    print(f"S&P 500 1-Month Return (%): {index_return_1m.iloc[0]}%")
 
