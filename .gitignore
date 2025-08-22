@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtualenv
+.venv/
+venv/
+consensus_env/
+
+# C/C++ build
+cpp/build/
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.a
+*.o
+*.obj
+*.exe
+*.out
+
+# macOS
+.DS_Store
+
+# Editors/IDE
+.vscode/
+.idea/
+*.swp
