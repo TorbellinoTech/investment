@@ -86,6 +86,14 @@ market_sim/
 - Performance analytics
 - Risk management tools
 
+### Visualization (consensus)
+- Script: `analysis/visualization/consensus_viz.py`
+- Run:
+```bash
+python market_sim/analysis/visualization/consensus_viz.py
+```
+This opens an interactive Plotly chart showing over time: common prefix, finalized depth, and min/avg/max chain heights across nodes.
+
 ## Getting Started
 
 1. Install dependencies:
@@ -113,3 +121,23 @@ pytest tests/integration/test_market_making.py
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Blockchain Consensus (new)
+
+A minimal longest-chain (Nakamoto-style) consensus simulator has been added:
+- Code: `blockchain/consensus/nakamoto.py`
+- Tests: `tests/unit/test_nakamoto.py`
+
+Run the unit tests:
+```bash
+pytest market_sim/tests/unit/test_nakamoto.py -q
+```
+
+Quick usage example (Python REPL):
+```python
+from blockchain.consensus.nakamoto import NakamotoNetwork, NetworkParams
+net = NakamotoNetwork(NetworkParams(num_nodes=5, block_probability_per_tick=0.7, delay_probability=0.2, seed=1))
+net.run(num_ticks=200)
+print("common_prefix_length:", net.common_prefix_length())
+print("finalized_depth:", net.finalized_depth())
+```
