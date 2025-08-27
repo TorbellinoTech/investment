@@ -13,9 +13,9 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 import heapq
 import logging
-from core.models.base import Order, Trade, Asset
-from market.exchange.matching_engine import MatchingEngine
-from market.agents.base_agent import BaseAgent
+from ...core.models.base import Order, Trade, Asset
+from ...market.exchange.matching_engine import MatchingEngine
+from ...market.agents.base_agent import BaseAgent
 
 class SimulationEvent:
     def __init__(self, timestamp: datetime, event_type: str, data: Any):
@@ -41,6 +41,10 @@ class MarketSimulation:
         self.agents: Dict[str, BaseAgent] = {}
         self.assets: Dict[str, Asset] = {}
         
+        # Optional consensus network (initialized via add_consensus_network)
+        self.consensus = None  # type: ignore
+        self._tick_index = 0
+        
         # Event queue
         self.event_queue = []
         
@@ -49,7 +53,8 @@ class MarketSimulation:
         self.metrics: Dict[str, List[Dict]] = {
             'order_book_snapshots': [],
             'agent_metrics': [],
-            'market_metrics': []
+            'market_metrics': [],
+            'consensus_metrics': []
         }
         
         # Setup logging
@@ -67,6 +72,14 @@ class MarketSimulation:
     def add_asset(self, asset: Asset) -> None:
         """Add an asset to the simulation."""
         self.assets[asset.symbol] = asset
+    
+    def add_consensus_network(self, params: Dict[str, Any]) -> None:
+        """Attach a Nakamoto consensus network to advance each tick.
+        params should include: num_nodes, block_probability_per_tick, delay_probability, seed
+        """
+        # Local import to avoid hard dependency when unused
+        from ...blockchain.consensus.nakamoto import NakamotoNetwork, NetworkParams
+        self.consensus = NakamotoNetwork(NetworkParams(**params))
     
     def schedule_event(self, timestamp: datetime, event_type: str, data: Any) -> None:
         """Schedule an event for future processing."""
@@ -146,6 +159,24 @@ class MarketSimulation:
                     'ask_volume': sum(qty for _, qty in asks)
                 })
     
+    def _advance_consensus_and_collect(self) -> None:
+        """Advance the consensus network one step and collect metrics, if attached."""
+        if self.consensus is None:
+            return
+        # Step once per tick
+        self.consensus.step()
+        # Collect metrics
+        heights = [n.head.index for n in self.consensus.nodes]
+        self.metrics['consensus_metrics'].append({
+            'timestamp': self.current_time,
+            'tick': self._tick_index,
+            'common_prefix': self.consensus.common_prefix_length(),
+            'finalized_depth': self.consensus.finalized_depth(),
+            'min_height': min(heights),
+            'max_height': max(heights),
+            'avg_height': sum(heights) / len(heights)
+        })
+    
     def run(self) -> Dict[str, Any]:
         """Run the simulation."""
         self.logger.info(f"Starting simulation from {self.start_time} to {self.end_time}")
@@ -163,9 +194,12 @@ class MarketSimulation:
             # Update order books and collect metrics
             self._update_order_books()
             self._collect_metrics()
+            # Advance consensus and collect metrics if present
+            self._advance_consensus_and_collect()
             
             # Advance time
             self.current_time += self.time_step
+            self._tick_index += 1
         
         self.logger.info("Simulation completed")
         return self._get_simulation_results()

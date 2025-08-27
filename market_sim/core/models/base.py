@@ -8,8 +8,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import Optional, List, Dict, Union
 from uuid import UUID, uuid4
-from core.utils.time_utils import utc_now
-from core.utils.time_utils import utc_now
+from ..utils.time_utils import utc_now
 
 class OrderType(Enum):
     MARKET = "market"

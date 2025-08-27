@@ -5,8 +5,8 @@ Matching engine for order execution.
 from typing import List, Optional, Tuple
 from decimal import Decimal
 from datetime import datetime
-from core.models.base import Order, Trade, OrderBook, OrderSide, OrderStatus, OrderType
-from core.utils.time_utils import utc_now
+from ...core.models.base import Order, Trade, OrderBook, OrderSide, OrderStatus, OrderType
+from ...core.utils.time_utils import utc_now
 
 class MatchingEngine:
     def __init__(self, symbol: str):

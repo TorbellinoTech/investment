@@ -30,3 +30,13 @@ The MIT License was chosen to:
 ## Notes
 
 Project log reinitialized on 2025-01-19.
+
+## New: Blockchain consensus simulator
+- See `market_sim/README.md` for a minimal Nakamoto-style longest-chain simulator (`market_sim/blockchain/consensus/nakamoto.py`) and how to run its tests.
+
+## Quick demo
+Generate a headless consensus plot (HTML):
+```bash
+python -m market_sim.analysis.visualization.consensus_viz --ticks 50 --no-show --save consensus.html
+```
+Then open `consensus.html` in your browser.
