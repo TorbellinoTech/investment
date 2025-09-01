@@ -2,11 +2,14 @@
 Matching engine for order execution.
 """
 
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from market_sim.core.models.base import Trade
 from decimal import Decimal
 from datetime import datetime
-from core.models.base import Order, Trade, OrderBook, OrderSide, OrderStatus, OrderType
-from core.utils.time_utils import utc_now
+from market_sim.core.models.base import Order, Trade, OrderBook, OrderSide, OrderStatus, OrderType
+from market_sim.core.utils.time_utils import utc_now
 
 class MatchingEngine:
     def __init__(self, symbol: str):
@@ -172,3 +175,19 @@ class MatchingEngine:
                       for price, orders in self.order_book.asks.items()))[:depth]
         
         return bids, asks 
+    
+    def get_order_book(self, symbol: str = None) -> dict:
+        """Get order book in dictionary format for compatibility."""
+        bids, asks = self.get_order_book_snapshot()
+        return {
+            'bids': bids,
+            'asks': asks
+        }
+    
+    def get_last_trade(self, symbol: str = None) -> Optional['Trade']:
+        """Get the last trade executed."""
+        return self.trades[-1] if self.trades else None
+
+    def add_order(self, order: Order) -> List[Trade]:
+        """Add an order to the matching engine (alias for process_order)."""
+        return self.process_order(order)

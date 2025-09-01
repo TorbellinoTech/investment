@@ -6,8 +6,8 @@ from abc import ABC, abstractmethod
 from typing import Dict, List, Optional, Any
 from decimal import Decimal
 from datetime import datetime
-from core.models.base import Order, Trade, Position, OrderSide, OrderType, OrderStatus
-from core.utils.time_utils import utc_now
+from market_sim.core.models.base import Order, Trade, Position, OrderSide, OrderType, OrderStatus
+from market_sim.core.utils.time_utils import utc_now
 
 class BaseAgent(ABC):
     def __init__(self, agent_id: str, initial_balance: Decimal):

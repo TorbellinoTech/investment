@@ -13,9 +13,9 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 import heapq
 import logging
-from core.models.base import Order, Trade, Asset
-from market.exchange.matching_engine import MatchingEngine
-from market.agents.base_agent import BaseAgent
+from market_sim.core.models.base import Order, Trade, Asset
+from market_sim.market.exchange.matching_engine import MatchingEngine
+from market_sim.market.agents.base_agent import BaseAgent
 
 class SimulationEvent:
     def __init__(self, timestamp: datetime, event_type: str, data: Any):

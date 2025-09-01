@@ -1,0 +1,239 @@
+# Network Scenarios Configuration
+# This file defines different network topologies and agent configurations
+# for testing distributed trading system behaviors
+
+# Global simulation settings
+simulation:
+  duration_seconds: 300  # 5 minutes
+  time_step_ms: 100      # 100ms simulation steps
+  random_seed: 42        # For reproducible results
+
+# Network topologies to test
+topologies:
+  # Simple star topology with central hub
+  star_network:
+    type: "star"
+    num_nodes: 8
+    central_node: "node_0"
+    latency_distribution: "normal"
+    latency_params:
+      mean_ms: 50
+      std_ms: 10
+    bandwidth_kbps: 1000
+
+  # Full mesh topology with all-to-all connections
+  mesh_network:
+    type: "mesh"
+    num_nodes: 6
+    latency_distribution: "exponential"
+    latency_params:
+      scale_ms: 30
+    bandwidth_kbps: 2000
+
+  # Geographic distribution (cross-continent)
+  global_network:
+    type: "geographic"
+    regions:
+      - name: "us_east"
+        nodes: 4
+        coordinates: [40.7128, -74.0060]  # NYC
+      - name: "us_west"
+        nodes: 3
+        coordinates: [37.7749, -122.4194] # SF
+      - name: "europe"
+        nodes: 3
+        coordinates: [51.5074, -0.1278]   # London
+      - name: "asia"
+        nodes: 2
+        coordinates: [35.6762, 139.6503]  # Tokyo
+    inter_region_latency:
+      us_east_us_west: 80
+      us_east_europe: 70
+      us_east_asia: 150
+      us_west_europe: 120
+      us_west_asia: 100
+      europe_asia: 200
+
+# Agent configurations
+agent_types:
+  # Basic momentum trader
+  momentum_trader:
+    strategy: "momentum"
+    count: 3
+    initial_balance: 10000
+    network_config:
+      latency_ms: 100
+      bandwidth_kbps: 500
+      packet_loss_rate: 0.02
+    strategy_config:
+      reaction_time_ms: 200
+      confidence_threshold: 0.7
+      information_sharing: true
+      momentum_window: 60
+      momentum_threshold: 0.02
+
+  # Network-aware arbitrage seeker
+  arbitrage_seeker:
+    strategy: "arbitrage"
+    count: 2
+    initial_balance: 50000
+    network_config:
+      latency_ms: 50
+      bandwidth_kbps: 1000
+      packet_loss_rate: 0.01
+    strategy_config:
+      reaction_time_ms: 100
+      min_profit_threshold: 0.001
+      max_holding_time: 300
+      information_sharing: false
+
+  # Information broker
+  information_broker:
+    strategy: "information_broker"
+    count: 1
+    initial_balance: 25000
+    network_config:
+      latency_ms: 75
+      bandwidth_kbps: 800
+      packet_loss_rate: 0.005
+    strategy_config:
+      reaction_time_ms: 150
+      information_value: 0.001
+      quality_threshold: 0.8
+
+  # Coordinated trader
+  coordinated_trader:
+    strategy: "coordinated"
+    count: 2
+    initial_balance: 30000
+    network_config:
+      latency_ms: 60
+      bandwidth_kbps: 1200
+      packet_loss_rate: 0.015
+    strategy_config:
+      reaction_time_ms: 120
+      coordination_threshold: 0.8
+      max_coordination_group: 4
+
+# Market configurations
+markets:
+  # Single asset market
+  single_asset:
+    symbols: ["STOCK_A"]
+    initial_price: 100.0
+    volatility: 0.02  # 2% daily volatility
+    order_book_depth: 10
+
+  # Multi-asset market
+  multi_asset:
+    symbols: ["STOCK_A", "STOCK_B", "STOCK_C"]
+    initial_prices:
+      STOCK_A: 100.0
+      STOCK_B: 50.0
+      STOCK_C: 200.0
+    correlations:
+      STOCK_A_STOCK_B: 0.3
+      STOCK_A_STOCK_C: -0.2
+      STOCK_B_STOCK_C: 0.1
+    volatility: 0.015
+    order_book_depth: 15
+
+# Network disruption scenarios
+disruptions:
+  # Network congestion event
+  congestion_event:
+    type: "congestion"
+    duration_seconds: 60
+    affected_links: ["node_0-node_1", "node_1-node_2"]
+    latency_multiplier: 3.0
+    bandwidth_reduction: 0.5
+
+  # Node failure
+  node_failure:
+    type: "node_failure"
+    target_node: "node_3"
+    duration_seconds: 120
+    recovery_time_seconds: 30
+
+  # Geographic outage
+  regional_outage:
+    type: "regional_outage"
+    affected_region: "us_west"
+    duration_seconds: 180
+    latency_multiplier: 5.0
+
+# Ethereum integration scenarios
+ethereum_scenarios:
+  # Local testnet integration
+  testnet_integration:
+    enabled: true
+    rpc_url: "http://localhost:8545"
+    chain_id: 1337
+    gas_price_gwei: 20
+    contracts:
+      - name: "MockToken"
+        address: "0x1234567890123456789012345678901234567890"
+        type: "erc20"
+      - name: "MockDEX"
+        address: "0x0987654321098765432109876543210987654321"
+        type: "uniswap_v2"
+
+  # Mainnet simulation (read-only)
+  mainnet_simulation:
+    enabled: false
+    rpc_url: "https://mainnet.infura.io/v3/YOUR_PROJECT_ID"
+    chain_id: 1
+    gas_price_gwei: 50
+    read_only: true
+
+# Monitoring and logging
+monitoring:
+  enable_real_time_monitoring: true
+  metrics_interval_seconds: 10
+  log_level: "INFO"
+  enable_network_visualization: true
+  alert_thresholds:
+    max_latency_ms: 1000
+    max_packet_loss: 0.1
+    min_bandwidth_kbps: 100
+
+# Performance benchmarks
+benchmarks:
+  target_tps: 1000  # Transactions per second
+  max_network_delay_ms: 500
+  min_agent_response_time_ms: 50
+  max_memory_usage_mb: 1024
+  max_cpu_usage_percent: 80
+
+# Advanced scenarios (for expert candidates)
+advanced_scenarios:
+  # Byzantine fault tolerance test
+  byzantine_test:
+    enabled: false
+    byzantine_nodes: 2
+    total_nodes: 7
+    attack_types: ["silent", "double_spend", "fake_orders"]
+    consensus_algorithm: "streamlet"
+
+  # Cross-chain arbitrage
+  cross_chain_arbitrage:
+    enabled: false
+    chains: ["ethereum", "polygon", "arbitrum"]
+    bridge_contracts:
+      ethereum_polygon: "0x..."
+      ethereum_arbitrum: "0x..."
+    arbitrage_threshold: 0.005  # 0.5%
+
+  # MEV (Miner Extractable Value) simulation
+  mev_simulation:
+    enabled: false
+    mev_strategies: ["front_running", "sandwich_attack", "back_running"]
+    gas_price_multipliers: [1.1, 1.5, 2.0]
+
+# TODO: Add more configuration scenarios:
+# - High-frequency trading scenarios
+# - Market maker vs taker dynamics
+# - Flash crash simulations
+# - Regulatory compliance scenarios
+# - Multi-asset portfolio management
+# - Options and derivatives trading

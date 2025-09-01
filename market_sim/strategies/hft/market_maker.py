@@ -12,9 +12,9 @@ from decimal import Decimal
 from typing import List, Dict, Optional, Tuple
 from datetime import datetime, timedelta
 import numpy as np
-from market.agents.base_agent import BaseAgent
-from core.models.base import Order, Trade, OrderSide, OrderType
-from core.utils.time_utils import utc_now
+from market_sim.market.agents.base_agent import BaseAgent
+from market_sim.core.models.base import Order, Trade, OrderSide, OrderType
+from market_sim.core.utils.time_utils import utc_now
 
 class MarketMaker(BaseAgent):
     def __init__(self, agent_id: str, initial_balance: Decimal,
