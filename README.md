@@ -1,14 +1,14 @@
-# Investment Market Simulator v0.1
-
-A comprehensive financial market simulation framework with integrated blockchain protocols, real-time trading capabilities, and distributed consensus mechanisms.
+# Investment Market Simulator v0.1 (HR Test)
 
 ## Preliminary Notes
 
 Some files have been added to the main branch with basic blockchain, cryptography and test logic.
 
-## Preliminary Notes for the Challenge
+## Preliminary Notes for the HR Test
 
 This is an extension of the main branch with added folders and files, mainly placeholders that may serve you for inspiration or ideas of what can be done.
+
+AS OF TODAY NOBODY HAS PASSED THE TEST. 
 
 YOU DO NOT NEED TO DO EVERYTHING. YOU CAN CHOOSE ONE OBJECTIVE FROM THE LIST. IT IS BETTER TO SHOW A CONCEPT FROM THE BOOK CLEARLY AND NICELY THAN TO PROVIDE A MESSY AND BROKEN MIX.
 
@@ -16,9 +16,11 @@ YOU DO NOT NEED TO WATCH THE TIME ESTIMATES. THOSE ARE PURELY ORIENTATIVE.
 
 SEE DISTRIBUTED_CHALLENGE_README for more details.
 
+SEE CREDITS for more details.
+
 ## Overview
 
-Investment v0.1 combines the best features from multiple proof-of-concept implementations to create a unified platform for:
+Investment v0.1 combines the some ideas of features from multiple proof-of-concept implementations to create a unified platform for:
 - Stock market simulation with realistic trading dynamics
 - Multiple blockchain consensus protocols (PoW, Raft, Streamlet, Byzantine fault-tolerant)
 - Integration of blockchain with market operations
@@ -164,8 +166,9 @@ pytest
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Add tests
-5. Submit a pull request
+4. Push to your repo
+5. Contact
+6. Submit a pull request (optional)
 
 ## Performance Metrics
 
@@ -188,7 +191,9 @@ MIT License - see LICENSE file for details
 
 ## Credits
 
-This project integrates work from multiple contributors who explored various blockchain-market integration concepts. Special thanks to all developers who contributed proof-of-concept implementations.
+AS OF TODAY NOBODY HAS PASSED THE TEST.
+ 
+This project integrates some contributions from multiple contributors who explored various blockchain-market integration concepts. Special thanks to all who tried the test and shared their attempts.
 
 
 ### GitHub Usernames (Comma-separated)

@@ -1,5 +1,7 @@
-# Distributed Real-Time Trading Challenge
+# Distributed Real-Time Trading Test
 
+AS OF TODAY NOBODY HAS PASSED THE TEST.
+ 
 ## Preliminary Notes
 
 Some files have been added with basic blockchain, cryptography and test logic.
