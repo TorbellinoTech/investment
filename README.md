@@ -18,6 +18,21 @@ SEE DISTRIBUTED_CHALLENGE_README for more details.
 
 SEE CREDITS for more details.
 
+## Instructions
+
+1. Read this readme and all the docs.
+2. Create a fork of this repo with your contribution.
+3. Contact.
+
+## Contact
+
+juan.diez@torbellino.tech
+
+## Further docs
+
+test: https://drive.google.com/file/d/19vKu5HmRJWuzrDGBsTaEiHyJlznYUZKO/view?usp=drive_link
+book: https://drive.google.com/file/d/1l9_uCBWikmX-XX5E15n3T65Nkh_cNnEW/view?usp=drive_link
+
 ## Overview
 
 Investment v0.1 combines the some ideas of features from multiple proof-of-concept implementations to create a unified platform for:
