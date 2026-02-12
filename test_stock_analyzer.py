@@ -1,3 +1,5 @@
+import pytest
+pytestmark = pytest.mark.db
 from stock_analysis import StockAnalyzer
 
 analyzer = StockAnalyzer()
